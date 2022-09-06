@@ -9,7 +9,7 @@ def main():
     reading = sensor.get_reading()
     database = storage.Database()
     database.write_reading(reading)
-    print(f'Wrote reading at {datetime.now()} to database.')
+    print(f'Wrote reading to database at {datetime.now()}.')
 
 
 if __name__ == '__main__':
