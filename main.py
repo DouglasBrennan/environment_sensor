@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 
 import raspi_sensor
 import storage
@@ -9,7 +9,7 @@ def main():
     reading = sensor.get_reading()
     database = storage.Database()
     database.write_reading(reading)
-    print(f'Wrote reading at {datetime.datetime.fromtimestamp(reading.timestamp)} to database.')
+    print(f'Wrote reading at {datetime.now()} to database.')
 
 
 if __name__ == '__main__':
