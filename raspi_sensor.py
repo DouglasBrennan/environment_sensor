@@ -1,9 +1,11 @@
+import time
+
 from smbus2 import SMBus
 from bme280 import BME280
 from enviroplus import gas
 import ltr559
 
-from interface import Sensor, Reading
+from interface import Sensor, Reading, Weather, Light, Location
 
 
 class RaspiSensor(Sensor):
@@ -12,10 +14,23 @@ class RaspiSensor(Sensor):
         self.bme280 = BME280(i2c_dev=self.bus)
 
     def get_reading(self) -> Reading:
-        return Reading(
+        weather = Weather(
             temperature=self.bme280.get_temperature(),
             pressure=self.bme280.get_pressure(),
             humidity=self.bme280.get_humidity(),
+        )
+        light = Light(
             lux=ltr559.get_lux(),
             proximity=ltr559.get_proximity(),
+        )
+        location = Location(
+            latitude=47.37689,
+            longitude=8.54802,
+            altitude=450.8
+        )
+        return Reading(
+            timestamp=time.time_ns(),
+            weather=weather,
+            light=light,
+            location=location
         )
