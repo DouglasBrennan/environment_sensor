@@ -17,7 +17,7 @@ def main():
         database.write_reading(reading)
         print(f'Wrote reading to database at {datetime.now()}.')
         storage.push_to_tangle(reading)
-        print(f'Pushed reading to tangle with index {os.getenv("uuid")}.')
+        print(f'Pushed reading to tangle with index {os.getenv("UUID")}.')
         time.sleep(1)
 
 

@@ -39,6 +39,6 @@ def push_to_tangle(reading: Reading) -> str:
         f'longitude={reading.location.longitude}&'
         f'latitude={reading.location.latitude}&'
         f'altitude={reading.location.altitude}&'
-        f'uuid={os.getenv("uuid")}'
+        f'uuid={os.getenv("UUID")}'
     )
     return str(message_id)
