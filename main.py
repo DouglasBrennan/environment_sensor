@@ -1,6 +1,6 @@
 from datetime import datetime
-from datetime import datetime
 import time
+import os
 
 import raspi_sensor
 import storage
@@ -16,8 +16,8 @@ def main():
         reading = sensor.get_reading()
         database.write_reading(reading)
         print(f'Wrote reading to database at {datetime.now()}.')
-        message_id = storage.push_to_tangle(reading)
-        print(f'Pushed reading to tangle with message_id {message_id}.')
+        storage.push_to_tangle(reading)
+        print(f'Pushed reading to tangle with index {os.getenv("uuid")}.')
         time.sleep(1)
 
 
