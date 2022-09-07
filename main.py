@@ -1,4 +1,6 @@
 from datetime import datetime
+from datetime import datetime
+import time
 
 import raspi_sensor
 import storage
@@ -6,10 +8,17 @@ import storage
 
 def main():
     sensor = raspi_sensor.RaspiSensor()
-    reading = sensor.get_reading()
     database = storage.Database()
-    database.write_reading(reading)
-    print(f'Wrote reading to database at {datetime.now()}.')
+    # priming sensor
+    for i in range(10):
+        sensor.get_reading()
+    while True:
+        reading = sensor.get_reading()
+        database.write_reading(reading)
+        print(f'Wrote reading to database at {datetime.now()}.')
+        message_id = storage.push_to_tangle(reading)
+        print(f'Pushed reading to tangle with message_id {message_id}.')
+        time.sleep(1)
 
 
 if __name__ == '__main__':

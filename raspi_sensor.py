@@ -20,16 +20,18 @@ class RaspiSensor(Sensor):
             humidity=self.bme280.get_humidity(),
         )
         light = Light(
-            lux=ltr559.get_lux(),
-            proximity=ltr559.get_proximity(),
+            lux=ltr559.LTR559.get_lux(),
+            proximity=ltr559.LTR559.get_proximity(),
         )
         location = Location(
             latitude=47.37689,
             longitude=8.54802,
             altitude=450.8
         )
+        timestamp = int(time.time() * 1000)
+        print(f'timestamp: {timestamp}')
         return Reading(
-            timestamp=time.time_ns(),
+            timestamp=timestamp,
             weather=weather,
             light=light,
             location=location

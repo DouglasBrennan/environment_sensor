@@ -4,6 +4,8 @@ from dotenv import load_dotenv
 from redis import Redis
 from interface import Reading
 
+import requests
+
 load_dotenv()
 
 ENDPOINT = os.getenv('ENDPOINT')
@@ -24,3 +26,19 @@ class Database:
         self.store.ts().add('longitude', reading.timestamp, reading.location.longitude)
         self.store.ts().add('latitude', reading.timestamp, reading.location.latitude)
         self.store.ts().add('altitude', reading.timestamp, reading.location.altitude)
+
+
+def push_to_tangle(reading: Reading) -> str:
+    message_id = requests.get(
+        f'https://iota-publisher.herokuapp.com/conditions?'
+        f'lux={reading.light.lux}&'
+        f'proximity={reading.light.proximity}&'
+        f'pressure={reading.weather.pressure}&'
+        f'temperature={reading.weather.temperature}&'
+        f'humidity={reading.weather.humidity}&'
+        f'longitude={reading.location.longitude}&'
+        f'latitude={reading.location.latitude}&'
+        f'altitude={reading.location.altitude}&'
+        f'uuid={os.getenv("uuid")}'
+    )
+    return str(message_id)

@@ -20,7 +20,7 @@ class DevSensor(Sensor):
             altitude=450.8
         )
         return Reading(
-            timestamp=time.time_ns(),
+            timestamp=time.time(),
             weather=weather,
             light=light,
             location=location
