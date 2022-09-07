@@ -31,7 +31,6 @@ class RaspiSensor(Sensor):
             altitude=450.8
         )
         timestamp = int(time.time() * 1000)
-        print(f'timestamp: {timestamp}')
         return Reading(
             timestamp=timestamp,
             weather=weather,
