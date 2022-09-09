@@ -1,4 +1,4 @@
-import time
+import datetime
 
 from smbus2 import SMBus
 from bme280 import BME280
@@ -30,7 +30,7 @@ class RaspiSensor(Sensor):
             longitude=8.54802,
             altitude=450.8
         )
-        timestamp = int(time.time() * 1000)
+        timestamp = datetime.datetime.now().timestamp()
         return Reading(
             timestamp=timestamp,
             weather=weather,
